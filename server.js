@@ -14,7 +14,7 @@ const multer = require("multer");
 const app = express();
 dotenv.config();
 // connect to database
-let DB_URL = process.env.DB_URL;
+let DB_URL = process.env.DB_url; // Changed from DB_URL to DB_url to match your .env file
 mongoose
   .connect(DB_URL)
   .then(() => console.log("connected to mongoDB"))
@@ -30,7 +30,7 @@ app.use(
     secret: process.env.SESSION_SECRET || "Danilosessionsecret",
     resave: false,
     saveUninitialized: false,
-    store: mongoStore.create({ mongoUrl: DB_URL }),
+    store: mongoStore.create({ mongoUrl: DB_URL }), // Make sure this uses the same variable
     cookie: { maxAge: 180 * 60 * 1000 }, // 3 hours
   })
 );
