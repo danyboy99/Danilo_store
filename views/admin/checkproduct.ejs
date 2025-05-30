@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/admin/checkproduct.css" />
+    <title>Check Products | Danilo Store</title>
+  </head>
+  <body>
+    <header>
+      <h2>Admin</h2>
+      <div class="header-actions">
+        <a href="/admin/homepage" class="dashboard-btn">Dashboard</a>
+        <a href="/admin/logout" class="logout-btn">Logout</a>
+      </div>
+    </header>
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p class="error"><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p class="success"><%= message%></p>
+      <% })%> <% } %>
+    </div>
+    <main>
+      <h2>Products</h2>
+      <div class="product-grid">
+        <% product.forEach(product =>{ %>
+        <div class="product-card">
+          <img src="/<%= product.imagePath %>" alt="<%= product.name %>" />
+          <h3><%= product.name %></h3>
+          <p class="product-category"><%= product.category %></p>
+          <p class="product-price">₦<%= product.price %></p>
+          <div class="product-actions">
+            <a
+              href="/admin/deleteproduct/<%= product._id %>"
+              class="delete-btn"
+              onclick="return confirm('Are you sure you want to delete this product?')"
+              >Delete</a
+            >
+            <a href="/admin/updateproduct/<%= product._id %>" class="update-btn"
+              >Update</a
+            >
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </main>
+  </body>
+</html>

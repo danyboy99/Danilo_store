@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Danilo Store</a></h1> 
+    </header>
+      </div>
+      <div class="cart-div">
+        <a href="/user/shoppingcart"
+          >Cart
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-cart"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+            />
+          </svg>
+          <% if(cart){ %>
+          <span class="badge bg-secondary"> <%=cart.totalQty%> </span>
+          <% }else{ %>
+          <span class="badge">0</span>
+          <% } %></a
+        >
+      </div>
+      <div class="user-dropdown">
+        <% if(isLoggedin){ %>
+        <img src="/<%= user.imagePath %>" alt="" class="loggedin-img" />
+        <div class="loggedin-dropdown-content">
+          <a href="/user/profile">profile</a>
+          <a href="/user/order">orders</a>
+          <a href="/user/settings">settings</a>
+          <a href="/user/logout">Log Out</a>
+        </div>
+        <%}else{ %>
+        <img src="/images/download.png" alt="" class="loggedout-img" />
+        <div class="loggedin-dropdown-content">
+          <a href="/user/login">Login</a>
+          <a href="/user/signup">sign Up</a>
+        </div>
+        <% } %>
+      </div>
+    </header>
+    <div class="category-header">
+      <h4>category : <%= mainCat %></h4>
+    </div>
+    <main>
+      <% product.forEach(prod =>{ %>
+      <div class="product-item">
+        <a href="/user/product/<%= prod._id %>" class="product-link">
+          <div class="product-container">
+            <img src="/<%= prod.imagePath %>" alt="<%= prod.name %>" />
+            <h2 class="product-name"><%= prod.name %></h2>
+            <p class="product-category"><%= prod.category %></p>
+            <h4 class="product-price">₦<%= prod.price %></h4>
+            <div class="product-action">
+              <% if(isLoggedin){ %>
+              <a href="/user/addtocart/<%= prod._id %>" class="cart-btn">Add to cart</a>
+              <%}else{ %>
+              <a href="/user/login" class="login-btn">Shop With Us</a>
+              <% } %>
+            </div>
+          </div>
+        </a>
+      </div>
+      <% }) %>
+    </main>
+  </body>
+</html>

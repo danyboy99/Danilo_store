@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/admin/checkuser.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h2>Admin</h2>
+      <a href="/admin/homepage" class="dashboard-btn">Back to Dashboard</a>
+    </header>
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p class="error"><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p class="success"><%= message%></p>
+      <% })%> <% } %>
+    </div>
+    <main>
+      <h3>current users</h3>
+      <% user.forEach(user =>{ %>
+      <div>
+        <h3><%= user.fullname %></h3>
+        <p><%= user.email %></p>
+        <p><%= user.address %></p>
+      </div>
+      <% }) %>
+    </main>
+  </body>
+</html>

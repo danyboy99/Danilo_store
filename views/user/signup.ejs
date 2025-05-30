@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/user/signup.css" />
+    <title>sign up</title>
+  </head>
+  <body>
+    <header>
+      <h2>Danilo Store</h2>
+    </header>
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p><%= message%></p>
+      <% })%> <% } %>
+    </div>
+    <main>
+      <h1>Sign Up</h1>
+      <form action="/user/signup" method="post">
+        <input type="text" placeholder="full name" name="fullname" />
+        <input type="email" placeholder="email" name="email" />
+        <input type="password" placeholder="password" name="password" />
+        <input type="text" placeholder="address" name="address" />
+        <input type="submit" value="Sign Up" />
+      </form>
+      <h6>Already have one ?<a href="/user/login">Login</a></h6>
+    </main>
+  </body>
+</html>

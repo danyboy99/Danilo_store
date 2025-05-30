@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/user/product-details.css" />
+    <title><%= product.name %> | Danilo Store</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Danilo Store</a></h1>
+      <div class="header-links">
+        <a href="/user/shoppingcart" class="cart-link"
+          >Cart <% if(cart && cart.totalQty) { %>
+          <span class="cart-count"><%= cart.totalQty %></span>
+          <% } %>
+        </a>
+        <% if(user) { %>
+        <a href="/user/profile" class="profile-link">Profile</a>
+        <% } else { %>
+        <a href="/user/login" class="login-link">Login</a>
+        <% } %>
+      </div>
+    </header>
+
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p class="error"><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p class="success"><%= message%></p>
+      <% })%> <% } %>
+    </div>
+
+    <div class="product-container">
+      <div class="product-image">
+        <img src="/<%= product.imagePath %>" alt="<%= product.name %>" />
+      </div>
+
+      <div class="product-details">
+        <h1 class="product-name"><%= product.name %></h1>
+        <p class="product-category"><%= product.category %></p>
+        <h2 class="product-price">₦<%= product.price %></h2>
+
+        <div class="product-description">
+          <h3>Description</h3>
+          <p><%= product.discription %></p>
+        </div>
+
+        <div class="product-meta">
+          <p><strong>Size:</strong> <%= product.size %></p>
+          <p><strong>Stock:</strong> <%= product.stock %></p>
+          <p><strong>Reviews:</strong> <%= product.reviews %></p>
+        </div>
+
+        <div class="product-actions">
+          <a href="/user/addtocart/<%= product._id %>" class="add-to-cart-btn"
+            >Add to Cart</a
+          >
+          <a href="/" class="continue-shopping">Continue Shopping</a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        &copy; <%= new Date().getFullYear() %> Danilo Store. All rights
+        reserved.
+      </p>
+    </footer>
+  </body>
+</html>

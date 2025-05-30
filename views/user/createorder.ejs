@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/javascript/createorder.js" defer></script>
+    <link rel="stylesheet" href="/stylesheets/user/createorder.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1>Danilo_store</h1>
+      <h4>plcae order</h4>
+    </header>
+    <main>
+      <form action="/user/createorder" method="post" id="paymentForm">
+        <input type="text" placeholder="name" name="name" />
+        <input type="email" placeholder="email" name="email" />
+        <input type="text" placeholder="address" name="address" />
+        <input type="number" placeholder="Card Number" name="card_num" />
+        <input type="number" placeholder="Card CVV" name="card_cvv" />
+        <div class="card-date">
+          <input type="number" placeholder="mm" name="card_exp_month" />
+          <input type="number" placeholder="yy" name="card_exp_year" />
+        </div>
+        <label for="card-pin" class="card-pin" id="card-pin"
+          >enter your card pin to procced wit the payment</label
+        >
+        <h5 class="server-msg" id="server-msg"></h5>
+        <input
+          type="number"
+          placeholder="Card Pin"
+          name="card_pin"
+          id="card-pin"
+          class="card-pin"
+        />
+        <header></header>
+        <h4>Total Price : <%= totalPrice %></h4>
+        <a href="/user/warning">Pay </a>
+      </form>
+    </main>
+  </body>
+</html>

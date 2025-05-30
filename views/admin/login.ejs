@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/admin/index.css" />
+    <title>Danilo Store</title>
+  </head>
+  <body>
+    <header>Admin panel</header>
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p><%= message%></p>
+      <% })%> <% } %>
+    </div>
+    <main>
+      <div>
+        <h4>welcome to Admin routes login wit admin cridentials</h4>
+      </div>
+      <form action="/admin/login" method="post">
+        <input type="email" placeholder="email" name="email" />
+        <input type="password" placeholder="password" name="password" />
+        <input type="submit" value="Login" />
+      </form>
+    </main>
+  </body>
+</html>

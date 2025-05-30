@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+    <link rel="stylesheet" href="/stylesheets/user/login.css"> 
+    <title>Danilo_store</title>
+  </head>
+  <body>
+    <header>
+      <h2>Danilo Store</h2>
+    </header>
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p><%= message%></p>
+      <% })%> <% } %>
+    </div>
+    <main>
+      <h1>Login</h1>
+      <form action="/user/login" method="post">
+        <input type="email" placeholder="email" name="email" />
+        <input type="password" placeholder="password" name="password" />
+        <input type="submit" value="Login" />
+      </form>
+      <h6>Don't have a account ? <a href="/user/signup">signup</a></h6>
+    </main>
+  </body>
+</html>

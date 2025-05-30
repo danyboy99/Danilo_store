@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/admin/updateproduct.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h2>Admin</h2>
+      <a href="/admin/homepage" class="dashboard-btn">Back to Dashboard</a>
+    </header>
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p class="error"><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p class="success"><%= message%></p>
+      <% })%> <% } %>
+    </div>
+    <main>
+      <h3>Update Product</h3>
+      <form action="/admin/updateproduct" method="post">
+        <label for="product-name">
+          enter the name of the product you want to update</label
+        >
+        <input
+          type="text"
+          id="product-name"
+          placeholder="product name"
+          name="name"
+        />
+        <label for="product-name"> fill in the update of the product</label>
+        <input type="text" placeholder="category" name="category" />
+        <input type="text" placeholder="discription" name="discription" />
+        <input type="text" placeholder="size" name="size" />
+        <input type="number" placeholder="price" name="price" />
+        <input type="text" placeholder="stock" name="stock" />
+        <input type="submit" value="update" />
+      </form>
+    </main>
+  </body>
+</html>

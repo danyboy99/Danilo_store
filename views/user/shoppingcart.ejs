@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/user/shopping-cart.css" />
+    <title>Shopping Cart | Danilo Store</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Danilo Store</a></h1>
+      <h2>Shopping Cart</h2>
+    </header>
+
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p class="error"><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p class="success"><%= message%></p>
+      <% })%> <% } %>
+    </div>
+
+    <div class="shoppingcart-container">
+      <% if(!cart || !cart.totalQty || cart.totalQty === 0) { %>
+      <div class="empty-cart">
+        <h4>Your cart is empty</h4>
+        <a href="/" class="continue-shopping">Continue Shopping</a>
+      </div>
+      <% } else { %>
+
+      <div class="cart-items">
+        <h3>Your Cart (<%= cart.totalQty %> items)</h3>
+
+        <% product.forEach(prod => { %>
+        <div class="cart-item">
+          <div class="item-image">
+            <img
+              src="/<%= prod.item.imagePath %>"
+              alt="<%= prod.item.name %>"
+            />
+          </div>
+          <div class="item-details">
+            <h3><%= prod.item.name %></h3>
+            <p class="item-category"><%= prod.item.category %></p>
+            <div class="item-quantity">
+              <span>Quantity: <%= prod.qty %></span>
+              <div class="quantity-actions">
+                <% if(prod.qty > 1) { %>
+                <a href="/user/reduce/<%= prod.item._id %>" class="reduce-btn"
+                  >-</a
+                >
+                <% } else { %>
+                <a href="/user/remove/<%= prod.item._id %>" class="remove-btn"
+                  >Remove</a
+                >
+                <% } %>
+                <a href="/user/addtocart/<%= prod.item._id %>" class="add-btn"
+                  >+</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="item-price">
+            <h4>₦<%= prod.price %></h4>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+
+      <div class="cart-summary">
+        <h3>Order Summary</h3>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>₦<%= cart.totalPrice %></span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>Free</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span>₦<%= cart.totalPrice %></span>
+        </div>
+        <a href="/user/checkout" class="checkout-btn">Proceed to Checkout</a>
+        <a href="/" class="continue-shopping">Continue Shopping</a>
+      </div>
+      <% } %>
+    </div>
+
+    <footer>
+      <p>
+        &copy; <%= new Date().getFullYear() %> Danilo Store. All rights
+        reserved.
+      </p>
+    </footer>
+  </body>
+</html>

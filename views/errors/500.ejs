@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Server Error | Danilo Store</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .error-container {
+        max-width: 600px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        color: #dc3545;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        margin-bottom: 1.5rem;
+      }
+
+      .error-message {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+      }
+
+      .home-link {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        background-color: #3a6ea5;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+      }
+
+      .home-link:hover {
+        background-color: #2c5282;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-container">
+      <h1>500 - Server Error</h1>
+      <p>
+        Sorry, something went wrong on our end. We're working to fix the issue.
+      </p>
+
+      <% if (error && error.message) { %>
+      <div class="error-message"><%= error.message %></div>
+      <% } %>
+
+      <a href="/" class="home-link">Return to Homepage</a>
+    </div>
+  </body>
+</html>

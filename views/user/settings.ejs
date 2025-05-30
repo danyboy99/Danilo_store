@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Settings | Danilo Store</title>
+    <link rel="stylesheet" href="/stylesheets/user/settings.css" />
+  </head>
+  <body>
+    <header>
+      <h2><a href="/">Danilo Store</a></h2>
+      <div class="header-links">
+        <a href="/user/profile" class="profile-link">Profile</a>
+        <a href="/user/shoppingcart" class="cart-link">Cart</a>
+        <a href="/user/logout" class="logout-link">Logout</a>
+      </div>
+    </header>
+
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p class="error"><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p class="success"><%= message%></p>
+      <% })%> <% } %>
+    </div>
+
+    <main>
+      <div class="settings-container">
+        <h1>Account Settings</h1>
+
+        <div class="settings-tabs">
+          <button class="tab-btn active" data-tab="profile">Profile</button>
+          <button class="tab-btn" data-tab="password">Password</button>
+          <button class="tab-btn" data-tab="photo">Profile Photo</button>
+        </div>
+
+        <div class="tab-content active" id="profile">
+          <h2>Edit Profile</h2>
+          <form
+            action="/user/settings/profile"
+            method="post"
+            class="settings-form"
+          >
+            <div class="form-group">
+              <label for="fullname">Full Name</label>
+              <input
+                type="text"
+                id="fullname"
+                name="fullname"
+                value="<%= user.fullname %>"
+                placeholder="Your full name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value="<%= user.email %>"
+                placeholder="Your email address"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="address">Shipping Address</label>
+              <textarea
+                id="address"
+                name="address"
+                placeholder="Your shipping address"
+              >
+<%= user.address %></textarea
+              >
+            </div>
+
+            <button type="submit" class="save-btn">Save Changes</button>
+          </form>
+        </div>
+
+        <div class="tab-content" id="password">
+          <h2>Change Password</h2>
+          <form
+            action="/user/settings/changepassword"
+            method="post"
+            class="settings-form"
+          >
+            <div class="form-group">
+              <label for="oldPassword">Current Password</label>
+              <input
+                type="password"
+                id="oldPassword"
+                name="oldPassword"
+                placeholder="Your current password"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                placeholder="Your new password"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="confirmNewPassword">Confirm New Password</label>
+              <input
+                type="password"
+                id="confirmNewPassword"
+                name="confirmNewPassword"
+                placeholder="Confirm your new password"
+              />
+            </div>
+
+            <button type="submit" class="save-btn">Change Password</button>
+          </form>
+        </div>
+
+        <div class="tab-content" id="photo">
+          <h2>Change Profile Photo</h2>
+          <div class="current-photo">
+            <h3>Current Photo</h3>
+            <div class="photo-preview">
+              <% if(user.profilepics) { %>
+              <img src="/<%= user.profilepics %>" alt="<%= user.fullname %>" />
+              <% } else { %>
+              <img src="/images/default-profile.png" alt="Default Profile" />
+              <% } %>
+            </div>
+          </div>
+
+          <form
+            action="/user/settings/profilepics"
+            method="post"
+            enctype="multipart/form-data"
+            class="settings-form"
+          >
+            <div class="form-group">
+              <label for="profile-image">Upload New Photo</label>
+              <input
+                type="file"
+                id="profile-image"
+                name="image"
+                accept="image/*"
+              />
+              <p class="form-hint">
+                Recommended size: 300x300 pixels. Max file size: 2MB.
+              </p>
+            </div>
+
+            <button type="submit" class="save-btn">Upload Photo</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Tab switching functionality
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          // Remove active class from all buttons and contents
+          tabBtns.forEach((b) => b.classList.remove("active"));
+          tabContents.forEach((c) => c.classList.remove("active"));
+
+          // Add active class to clicked button
+          btn.classList.add("active");
+
+          // Show corresponding content
+          const tabId = btn.getAttribute("data-tab");
+          document.getElementById(tabId).classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>

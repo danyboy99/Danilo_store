@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bad Request | Danilo Store</title>
+  <link rel="stylesheet" href="/stylesheets/errors.css">
+</head>
+<body>
+  <div class="error-container">
+    <div class="error-code">400</div>
+    <h1>Bad Request</h1>
+    <p>The server could not understand your request.</p>
+    <div class="error-details">
+      <% if (error && error.message) { %>
+        <p class="error-message"><%= error.message %></p>
+      <% } %>
+    </div>
+    <a href="/" class="btn-home">Back to Homepage</a>
+  </div>
+</body>
+</html>

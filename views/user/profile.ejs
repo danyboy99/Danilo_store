@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile | Danilo Store</title>
+    <link rel="stylesheet" href="/stylesheets/user/profile.css" />
+  </head>
+  <body>
+    <header>
+      <h2><a href="/">Danilo Store</a></h2>
+      <div class="header-links">
+        <a href="/user/shoppingcart" class="cart-link">Cart</a>
+        <a href="/user/settings" class="settings-link">Settings</a>
+        <a href="/user/logout" class="logout-link">Logout</a>
+      </div>
+    </header>
+
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p class="error"><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p class="success"><%= message%></p>
+      <% })%> <% } %>
+    </div>
+
+    <main>
+      <div class="profile-container">
+        <div class="profile-header">
+          <div class="profile-image">
+            <% if(user.profilepics) { %>
+            <img src="/<%= user.profilepics %>" alt="<%= user.fullname %>" />
+            <% } else { %>
+            <img src="/images/default-profile.png" alt="Default Profile" />
+            <% } %>
+          </div>
+          <div class="profile-info">
+            <h1><%= user.fullname %></h1>
+            <p class="email"><%= user.email %></p>
+            <p class="address">
+              <i class="fa fa-map-marker"></i> <%= user.address %>
+            </p>
+          </div>
+        </div>
+
+        <div class="profile-tabs">
+          <button class="tab-btn active" data-tab="orders">My Orders</button>
+          <button class="tab-btn" data-tab="account">Account Details</button>
+        </div>
+
+        <div class="tab-content active" id="orders">
+          <h2>My Orders</h2>
+          <% if (typeof orders !== 'undefined' && orders && orders.length > 0) {
+          %>
+          <div class="orders-list">
+            <% orders.forEach(order => { %>
+            <div class="order-card">
+              <div class="order-header">
+                <div>
+                  <h3>Order #<%= order._id.toString().slice(-8) %></h3>
+                  <p class="order-date">
+                    <%= new Date(order.createdAt).toLocaleDateString() %>
+                  </p>
+                </div>
+                <div class="order-status <%= order.status.toLowerCase() %>">
+                  <%= order.status %>
+                </div>
+              </div>
+              <div class="order-items">
+                <% order.items.forEach(item => { %>
+                <div class="order-item">
+                  <img
+                    src="/<%= item.product.imagePath %>"
+                    alt="<%= item.product.name %>"
+                  />
+                  <div class="item-details">
+                    <h4><%= item.product.name %></h4>
+                    <p>Quantity: <%= item.quantity %></p>
+                    <p>Price: ₦<%= item.price %></p>
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+              <div class="order-footer">
+                <p class="order-total">Total: ₦<%= order.totalPrice %></p>
+                <a href="/user/order/<%= order._id %>" class="view-details-btn"
+                  >View Details</a
+                >
+              </div>
+            </div>
+            <% }) %>
+          </div>
+          <% } else { %>
+          <div class="no-orders">
+            <p>You haven't placed any orders yet.</p>
+            <a href="/" class="shop-now-btn">Shop Now</a>
+          </div>
+          <% } %>
+        </div>
+
+        <div class="tab-content" id="account">
+          <h2>Account Details</h2>
+          <div class="account-details">
+            <div class="detail-row">
+              <span class="detail-label">Full Name:</span>
+              <span class="detail-value"><%= user.fullname %></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Email:</span>
+              <span class="detail-value"><%= user.email %></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Address:</span>
+              <span class="detail-value"><%= user.address %></span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Member Since:</span>
+              <span class="detail-value"
+                ><%= user.createdAt ? new
+                Date(user.createdAt).toLocaleDateString() : 'N/A' %></span
+              >
+            </div>
+          </div>
+          <div class="account-actions">
+            <a href="/user/settings" class="edit-profile-btn">Edit Profile</a>
+            <a href="/user/settings" class="change-password-btn"
+              >Change Password</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Tab switching functionality
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      tabBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          // Remove active class from all buttons and contents
+          tabBtns.forEach((b) => b.classList.remove("active"));
+          tabContents.forEach((c) => c.classList.remove("active"));
+
+          // Add active class to clicked button
+          btn.classList.add("active");
+
+          // Show corresponding content
+          const tabId = btn.getAttribute("data-tab");
+          document.getElementById(tabId).classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>

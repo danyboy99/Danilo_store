@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h2>Danilo Store</h2>
+    </header>
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p><%= message%></p>
+      <% })%> <% } %>
+    </div>
+    <main>
+      <form action="/user/inputpin" method="post">
+        <input type="number" name="pin" placeholder="input Card pin" />
+        <input type="submit" value="enter" />
+      </form>
+    </main>
+  </body>
+</html>

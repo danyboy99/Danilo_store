@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/admin/createadmin.css" />
+    <title>Danilo Store</title>
+  </head>
+  <body>
+    <header>
+      <h2>Admin</h2>
+      <a href="/admin/homepage" class="dashboard-btn">Back to Dashboard</a>
+    </header>
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p class="error"><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p class="success"><%= message%></p>
+      <% })%> <% } %>
+    </div>
+    <main>
+      <h2>create new admin account</h2>
+      <form action="/admin/createadmin" method="post">
+        <input type="text" placeholder="full name" name="fullname" />
+        <input type="email" placeholder="email" name="email" />
+        <input type="password" placeholder="password" name="password" />
+        <input type="submit" value="create" />
+      </form>
+    </main>
+  </body>
+</html>

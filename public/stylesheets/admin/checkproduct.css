@@ -1,0 +1,188 @@
+/* product-display.css */
+
+/* Reset basic styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333;
+  height: 100vh;
+}
+
+/* Header Styling */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem 2rem;
+  width: 100%;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h2 {
+  margin: 0;
+}
+
+/* Header actions styling */
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Dashboard Button Styling */
+.dashboard-btn {
+  background-color: #3a6ea5;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.dashboard-btn:hover {
+  background-color: #2c5282;
+}
+
+/* Logout Button Styling */
+.logout-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #c82333;
+}
+
+/* Server Message Styling */
+.server-msg {
+  margin-top: 1rem;
+  width: 90%;
+  max-width: 800px;
+}
+
+.server-msg .error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.server-msg .success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Main Content Styling */
+main {
+  margin-top: 2rem;
+  width: 90%;
+  max-width: 1200px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+main h4 {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Product grid styling */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-card h3 {
+  padding: 1rem 1rem 0.5rem;
+  font-size: 1.2rem;
+}
+
+.product-category {
+  padding: 0 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.product-price {
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.product-actions {
+  display: flex;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.delete-btn,
+.update-btn {
+  flex: 1;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.update-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  main > div {
+    flex-direction: column;
+    align-items: center;
+  }
+}

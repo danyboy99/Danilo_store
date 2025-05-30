@@ -1,0 +1,175 @@
+/* product-display.css */
+
+/* Reset basic styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333;
+  height: 100vh;
+}
+
+/* Header Styling */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem 2rem;
+  width: 100%;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h2 {
+  margin: 0;
+}
+
+/* Dashboard Button Styling */
+.dashboard-btn {
+  background-color: #3a6ea5;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.dashboard-btn:hover {
+  background-color: #2c5282;
+}
+
+/* Server Message Styling */
+.server-msg {
+  margin-top: 1rem;
+  width: 90%;
+  max-width: 800px;
+}
+
+.server-msg .error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.server-msg .success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Main Content Styling */
+main {
+  margin-top: 2rem;
+  width: 90%;
+  max-width: 1200px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+main h4 {
+  font-size: 1.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Product Container */
+main > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* Product Card Styling */
+main > div > div {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s;
+}
+
+main > div > div:hover {
+  transform: translateY(-5px);
+}
+
+/* Product Title (h2) Styling */
+main > div > div h2 {
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Product Image Styling */
+main > div > div img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+/* Product Details Styling */
+main > div > div h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0.5rem 0;
+}
+
+main > div > div p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0.3rem 0;
+}
+
+/* Delete Button Styling */
+main > div > div a {
+  margin-top: 1rem;
+  background-color: #d9534f;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+main > div > div a:hover {
+  background-color: #c9302c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  main > div {
+    flex-direction: column;
+    align-items: center;
+  }
+}

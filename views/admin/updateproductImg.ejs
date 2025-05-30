@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/admin/updateproductimg.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h2>Admin</h2>
+      <a href="/admin/homepage" class="dashboard-btn">Back to Dashboard</a>
+    </header>
+    <div class="server-msg">
+      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
+      <p class="error"><%= message%></p>
+      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
+      <p class="success"><%= message%></p>
+      <% })%> <% } %>
+    </div>
+    <main>
+      <h2>update product image</h2>
+      <form
+        action="/admin/updateimage"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label for="product-name"
+          >Enter the product name you want to update</label
+        >
+        <input
+          id="product-name"
+          type="text"
+          placeholder="product name"
+          name="name"
+        />
+        <label for="product-image">New Product image</label>
+        <input
+          type="file"
+          id="product-image"
+          name="image"
+          placeholder="product image"
+        />
+        <input type="submit" value="update" />
+      </form>
+    </main>
+  </body>
+</html>
