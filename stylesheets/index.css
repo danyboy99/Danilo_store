@@ -1,6 +1,6 @@
 /* General styles */
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
   background: #f8f9fa;
   color: #222;
@@ -13,7 +13,7 @@ header {
   justify-content: space-between;
   background: #fff;
   padding: 1rem 2vw;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -53,7 +53,7 @@ header h1 a {
   position: absolute;
   background: #fff;
   min-width: 160px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   border-radius: 6px;
   z-index: 10;
   margin-top: 0.5rem;
@@ -104,8 +104,7 @@ header h1 a {
   align-items: center;
 }
 
-.loggedin-img,
-.loggedout-img {
+.loggedin-img, .loggedout-img {
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -116,8 +115,7 @@ header h1 a {
   transition: border 0.2s;
 }
 
-.loggedin-img:hover,
-.loggedout-img:hover {
+.loggedin-img:hover, .loggedout-img:hover {
   border: 2px solid #0056b3;
 }
 
@@ -128,7 +126,7 @@ header h1 a {
   top: 48px;
   background: #fff;
   min-width: 160px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   border-radius: 6px;
   z-index: 10;
   padding: 0.5rem 0;
@@ -188,7 +186,7 @@ main {
 .product-item {
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   overflow: hidden;
   transition: box-shadow 0.2s, transform 0.2s;
   display: flex;
@@ -196,7 +194,7 @@ main {
 }
 
 .product-item:hover {
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.13);
   transform: translateY(-4px) scale(1.02);
 }
 
@@ -254,8 +252,7 @@ main {
   justify-content: center;
 }
 
-.cart-btn,
-.login-btn {
+.cart-btn, .login-btn {
   background: #007bff;
   color: #fff;
   border: none;
@@ -270,8 +267,7 @@ main {
   text-align: center;
 }
 
-.cart-btn:hover,
-.login-btn:hover {
+.cart-btn:hover, .login-btn:hover {
   background: #0056b3;
 }
 
@@ -295,9 +291,7 @@ main {
     padding: 0.7rem 3vw;
     gap: 0.5rem;
   }
-  .catigory-dropdown,
-  .cart-div,
-  .user-dropdown {
+  .catigory-dropdown, .cart-div, .user-dropdown {
     margin-right: 0;
     margin-bottom: 0.5rem;
   }
