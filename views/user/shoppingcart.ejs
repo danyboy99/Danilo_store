@@ -34,10 +34,7 @@
         <% product.forEach(prod => { %>
         <div class="cart-item">
           <div class="item-image">
-            <img
-              src="/<%= prod.item.imagePath %>"
-              alt="<%= prod.item.name %>"
-            />
+            <img src="<%= prod.item.imagePath %>" alt="<%= prod.item.name %>" />
           </div>
           <div class="item-details">
             <h3><%= prod.item.name %></h3>

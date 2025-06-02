@@ -69,7 +69,9 @@
               <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
                 <% catigory.forEach(cat =>{ %>
                 <li>
-                  <a class="dropdown-item" href="/category/<%= cat %>"><%= cat %></a>
+                  <a class="dropdown-item" href="/category/<%= cat %>"
+                    ><%= cat %></a
+                  >
                 </li>
                 <% })%>
               </ul>
@@ -82,7 +84,9 @@
                 class="btn btn-outline-secondary position-relative"
               >
                 <i class="fa fa-shopping-cart"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                >
                   <%= cart ? cart.totalQty : 0 %>
                 </span>
               </a>
@@ -100,15 +104,26 @@
                   src="/<%= user.profilepics %>"
                   alt="Profile"
                   class="rounded-circle"
-                  style="width:32px; height:32px; object-fit:cover;"
+                  style="width: 32px; height: 32px; object-fit: cover"
                 />
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="/user/profile">Profile</a></li>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="userDropdown"
+              >
+                <li>
+                  <a class="dropdown-item" href="/user/profile">Profile</a>
+                </li>
                 <li><a class="dropdown-item" href="/user/orders">Orders</a></li>
-                <li><a class="dropdown-item" href="/user/settings">Settings</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="/user/logout">Log Out</a></li>
+                <li>
+                  <a class="dropdown-item" href="/user/settings">Settings</a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item text-danger" href="/user/logout"
+                    >Log Out</a
+                  >
+                </li>
               </ul>
               <% } else { %>
               <a
@@ -122,12 +137,17 @@
                   src="/images/download.png"
                   alt="Login"
                   class="rounded-circle"
-                  style="width:32px; height:32px;"
+                  style="width: 32px; height: 32px"
                 />
               </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="userDropdown"
+              >
                 <li><a class="dropdown-item" href="/user/login">Login</a></li>
-                <li><a class="dropdown-item" href="/user/signup">Sign Up</a></li>
+                <li>
+                  <a class="dropdown-item" href="/user/signup">Sign Up</a>
+                </li>
               </ul>
               <% } %>
             </li>
@@ -141,13 +161,20 @@
       <% if(hasErr){ errMsg.forEach(message =>{ %>
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <%= message %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+        ></button>
       </div>
-      <% }) } %>
-      <% if(hasSuccess){ successMsg.forEach(message =>{ %>
+      <% }) } %> <% if(hasSuccess){ successMsg.forEach(message =>{ %>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <%= message %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+        ></button>
       </div>
       <% }) } %>
     </div>
@@ -163,14 +190,16 @@
               class="text-decoration-none text-dark"
             >
               <img
-                src="/<%= prod.imagePath %>"
+                src="<%= prod.imagePath %>"
                 class="card-img-top"
                 alt="<%= prod.name %>"
               />
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title"><%= prod.name %></h5>
                 <p class="card-text text-muted mb-1"><%= prod.category %></p>
-                <h6 class="card-subtitle mb-2 text-success">₦<%= prod.price %></h6>
+                <h6 class="card-subtitle mb-2 text-success">
+                  ₦<%= prod.price %>
+                </h6>
                 <div class="mt-auto">
                   <% if(isLoggedin){ %>
                   <a
@@ -180,10 +209,7 @@
                     Add to cart
                   </a>
                   <% } else { %>
-                  <a
-                    href="/user/login"
-                    class="btn btn-outline-secondary w-100"
-                  >
+                  <a href="/user/login" class="btn btn-outline-secondary w-100">
                     Shop With Us
                   </a>
                   <% } %>

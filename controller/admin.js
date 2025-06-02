@@ -3,6 +3,9 @@ const argon = require("argon2");
 const Product = require("../model/product");
 const Tools = require("../config/tools");
 const fs = require("fs");
+const cloudinary = require("../config/tools").cloudinary;
+
+// Function to create a new admin account
 
 const createAdmin = async (req, res) => {
   let errMsg = [];
@@ -38,13 +41,14 @@ const createProduct = async (req, res, next) => {
     const { name, category, discription, size, price, stock } = req.body;
 
     // Check if file was uploaded
-    if (!req.file) {
-      errMsg.push("Product image is required");
-      req.flash("error", errMsg);
-      return res.redirect("/admin/createproduct");
-    }
-
-    const imagePath = req.file.path;
+    // if (!req.file) {
+    //   errMsg.push("Product image is required");
+    //   req.flash("error", errMsg);
+    //   return res.redirect("/admin/createproduct");
+    // }
+    const result = await cloudinary.uploader.upload(req.file.path); // Upload to Cloudinary
+    fs.unlinkSync(req.file.path); // Remove the local file
+    const imagePath = result.secure_url; // Get the secure URL from Cloudinary
 
     // Validate other required fields
     if (!name || !category || !price) {

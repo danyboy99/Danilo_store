@@ -1,12 +1,14 @@
 const express = require("express");
 const Controller = require("../controller/admin");
 const passport = require("passport");
-const upload = require("../config/multer");
+const multer = require("multer");
 const Product = require("../model/product");
 const User = require("../model/user");
 const { isAdminLoggedIn } = require("../middleware/auth");
 
 const router = express.Router();
+
+const upload = multer({ dest: "uploads/" }); // Temporary local storage
 
 // Public routes
 router.get("/", (req, res) => {

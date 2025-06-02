@@ -67,6 +67,8 @@ app.get("/category/:cat", async (req, res) => {
     const catigoryList = await tools.catigoryList();
     const user = req.user;
     let Cart = req.session.cart;
+    const successMsg = req.flash("success");
+    const errMsg = req.flash("error");
 
     return res.render("category", {
       product: foundProduct,
@@ -75,6 +77,10 @@ app.get("/category/:cat", async (req, res) => {
       catigory: catigoryList,
       user: user,
       mainCat: category,
+      hasErr: errMsg.length > 0,
+      hasSuccess: successMsg.length > 0,
+      errMsg: errMsg,
+      successMsg: successMsg,
     });
   } catch (err) {
     errMsg.push(err.message);
