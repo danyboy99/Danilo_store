@@ -2,10 +2,13 @@ const fs = require("fs");
 const Product = require("../model/product");
 const cloudinary = require("cloudinary").v2;
 // Configure Cloudinary
+let cloudinary_name = process.env.cloudinary_cloud_name;
+let cloudinary_api_key = process.env.cloudinary_api_key;
+let cloudinary_api_secret = process.env.cloudinary_api_secret;
 cloudinary.config({
-  cloud_name: "dmtfr247c",
-  api_key: "916295955767192",
-  api_secret: "Dh25wiYQXFM9On9y7VusV02H0dU", // Click 'View API Keys' above to copy your API secret
+  cloud_name: cloudinary_name,
+  api_key: cloudinary_api_key,
+  api_secret: cloudinary_api_secret, // Click 'View API Keys' above to copy your API secret
 });
 
 const deleteImage = (filePath) => {
