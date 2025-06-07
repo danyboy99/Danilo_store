@@ -167,7 +167,10 @@ const deleteProduct = async (req, res) => {
   let successMsg = [];
   try {
     const productId = req.params.id;
+    const product = await Product.findById(productId);
+    const public_id = product.imagePath;
     await Product.findByIdAndDelete(productId);
+    await cloudinary.uploader.destroy(public_id);
     let message = "product deleted successfully";
     successMsg.push(message);
     req.flash("success", successMsg);

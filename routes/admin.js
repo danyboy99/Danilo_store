@@ -5,6 +5,7 @@ const multer = require("multer");
 const Product = require("../model/product");
 const User = require("../model/user");
 const { isAdminLoggedIn } = require("../middleware/auth");
+const Order = require("../model/order.js");
 
 const router = express.Router();
 
@@ -73,17 +74,17 @@ router.get("/updateproduct", isAdminLoggedIn, (req, res) => {
   });
 });
 
-router.get("/updateimage", isAdminLoggedIn, (req, res) => {
-  const successMsg = req.flash("success");
-  const errMsg = req.flash("error");
+// router.get("/updateimage", isAdminLoggedIn, (req, res) => {
+//   const successMsg = req.flash("success");
+//   const errMsg = req.flash("error");
 
-  return res.render("admin/updateproductImg", {
-    hasErr: errMsg.length > 0,
-    hasSuccess: successMsg.length > 0,
-    errMsg: errMsg,
-    successMsg: successMsg,
-  });
-});
+//   return res.render("admin/updateproductImg", {
+//     hasErr: errMsg.length > 0,
+//     hasSuccess: successMsg.length > 0,
+//     errMsg: errMsg,
+//     successMsg: successMsg,
+//   });
+// });
 
 router.get("/checkproduct", async (req, res) => {
   let errMsg = [];
@@ -134,12 +135,12 @@ router.post(
   Controller.createProduct
 );
 router.post("/updateproduct", isAdminLoggedIn, Controller.updateProduct);
-router.post(
-  "/updateimage",
-  isAdminLoggedIn,
-  upload.single("image"),
-  Controller.updateProductImg
-);
+// router.post(
+//   "/updateimage",
+//   isAdminLoggedIn,
+//   upload.single("image"),
+//   Controller.updateProductImg
+// );
 router.get("/deleteproduct/:id", isAdminLoggedIn, Controller.deleteProduct);
 
 router.get("/checkorders", isAdminLoggedIn, async (req, res) => {
@@ -147,21 +148,71 @@ router.get("/checkorders", isAdminLoggedIn, async (req, res) => {
   try {
     const successMsg = req.flash("success");
     const errMsg = req.flash("error");
-    // Assuming you have an Order model
-    // const orders = await Order.find().populate('user');
 
-    // For now, we'll just render a template without orders
+    // Get filter parameter from query string
+    const filter = req.query.filter || "all";
+    let query = {};
+
+    // Apply filter based on status
+    if (filter === "pending") {
+      query.status = { $in: ["Pending", "Processing"] };
+    } else if (filter === "successful") {
+      query.status = { $in: ["Shipped", "Delivered"] };
+    } else if (filter === "cancelled") {
+      query.status = "Cancelled";
+    }
+
+    // Fetch orders with populated user and product data
+    const foundOrders = await Order.find(query)
+      .populate("user", "fullname email")
+      .populate("items.product", "name imagePath category")
+      .sort({ createdAt: -1 }); // Most recent first
+
+    // Get order statistics
+    const totalOrders = await Order.countDocuments();
+    const pendingOrders = await Order.countDocuments({
+      status: { $in: ["Pending", "Processing"] },
+    });
+    const successfulOrders = await Order.countDocuments({
+      status: { $in: ["Shipped", "Delivered"] },
+    });
+    const cancelledOrders = await Order.countDocuments({ status: "Cancelled" });
+
     return res.render("admin/checkorders", {
       hasErr: errMsg.length > 0,
       hasSuccess: successMsg.length > 0,
       errMsg: errMsg,
       successMsg: successMsg,
-      orders: [], // Replace with actual orders when available
+      orders: foundOrders,
+      currentFilter: filter,
+      stats: {
+        total: totalOrders,
+        pending: pendingOrders,
+        successful: successfulOrders,
+        cancelled: cancelledOrders,
+      },
     });
   } catch (err) {
     errMsg.push(err.message);
+    console.log("error:", err.message);
     req.flash("error", errMsg);
     return res.redirect("/admin/homepage");
+  }
+});
+
+// Route to update order status
+router.post("/updateorderstatus/:id", isAdminLoggedIn, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const orderId = req.params.id;
+
+    await Order.findByIdAndUpdate(orderId, { status: status });
+
+    req.flash("success", `Order status updated to ${status}`);
+    res.redirect("/admin/checkorders");
+  } catch (err) {
+    req.flash("error", "Failed to update order status");
+    res.redirect("/admin/checkorders");
   }
 });
 

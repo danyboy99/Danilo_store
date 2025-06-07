@@ -3,35 +3,578 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Management - Danilo Store Admin</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/stylesheets/admin/checkorders.css" />
-    <title>Check Orders</title>
   </head>
   <body>
-    <header>
-      <h2>Admin</h2>
-      <a href="/admin/homepage" class="dashboard-btn">Back to Dashboard</a>
-    </header>
-    <div class="server-msg">
-      <% if(hasErr){%> <% errMsg.forEach(message =>{ %>
-      <p class="error"><%= message%></p>
-      <% })%> <% } %> <% if(hasSuccess){%> <% successMsg.forEach(message =>{ %>
-      <p class="success"><%= message%></p>
-      <% })%> <% } %>
-    </div>
-    <main>
-      <h2>Orders</h2>
-      <% if(orders && orders.length > 0) { %>
-        <div class="orders-container">
-          <% orders.forEach(order => { %>
-            <div class="order-card">
-              <h3>Order #<%= order._id %></h3>
-              <!-- Add order details here when you have the Order model -->
-            </div>
-          <% }); %>
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="header-left">
+            <h1 class="admin-title">
+              <i class="fas fa-clipboard-list me-2"></i>Order Management
+            </h1>
+          </div>
+          <div class="header-right">
+            <a href="/admin/homepage" class="btn btn-outline-light">
+              <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+            </a>
+          </div>
         </div>
-      <% } else { %>
-        <p class="no-orders">No orders found</p>
-      <% } %>
+      </div>
+    </header>
+
+    <!-- Server Messages -->
+    <div class="container-fluid mt-3">
+      <% if(hasErr){ errMsg.forEach(message =>{ %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i><%= message %>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+        ></button>
+      </div>
+      <% }) } %> <% if(hasSuccess){ successMsg.forEach(message =>{ %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle me-2"></i><%= message %>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+        ></button>
+      </div>
+      <% }) } %>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container-fluid">
+      <!-- Statistics Cards -->
+      <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="stats-card total">
+            <div class="stats-icon">
+              <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div class="stats-content">
+              <h3><%= stats.total %></h3>
+              <p>Total Orders</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="stats-card pending">
+            <div class="stats-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stats-content">
+              <h3><%= stats.pending %></h3>
+              <p>Pending Orders</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="stats-card successful">
+            <div class="stats-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stats-content">
+              <h3><%= stats.successful %></h3>
+              <p>Successful Orders</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+          <div class="stats-card cancelled">
+            <div class="stats-icon">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="stats-content">
+              <h3><%= stats.cancelled %></h3>
+              <p>Cancelled Orders</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Tabs and Search -->
+      <div class="card mb-4">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <ul class="nav nav-pills filter-tabs">
+                <li class="nav-item">
+                  <a
+                    class="nav-link <%= currentFilter === 'all' ? 'active' : '' %>"
+                    href="/admin/checkorders?filter=all"
+                  >
+                    <i class="fas fa-list me-1"></i>All Orders
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link <%= currentFilter === 'pending' ? 'active' : '' %>"
+                    href="/admin/checkorders?filter=pending"
+                  >
+                    <i class="fas fa-clock me-1"></i>Pending
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link <%= currentFilter === 'successful' ? 'active' : '' %>"
+                    href="/admin/checkorders?filter=successful"
+                  >
+                    <i class="fas fa-check me-1"></i>Successful
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link <%= currentFilter === 'cancelled' ? 'active' : '' %>"
+                    href="/admin/checkorders?filter=cancelled"
+                  >
+                    <i class="fas fa-times me-1"></i>Cancelled
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <div class="search-box">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="searchOrders"
+                  placeholder="Search orders..."
+                />
+                <i class="fas fa-search search-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orders Table -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title mb-0">
+            <i class="fas fa-table me-2"></i>Orders List
+            <span class="badge bg-primary ms-2"><%= orders.length %></span>
+          </h5>
+        </div>
+        <div class="card-body p-0">
+          <% if(orders && orders.length > 0) { %>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" id="ordersTable">
+              <thead class="table-dark">
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% orders.forEach(order => { %>
+                <tr class="order-row" data-order-id="<%= order._id %>">
+                  <td>
+                    <div class="order-id">
+                      <strong
+                        >#<%= order._id.toString().slice(-8).toUpperCase()
+                        %></strong
+                      >
+                    </div>
+                  </td>
+                  <td>
+                    <div class="customer-info">
+                      <div class="customer-name">
+                        <%= order.user ? order.user.fullname : 'Unknown User' %>
+                      </div>
+                      <small class="text-muted">
+                        <%= order.user ? order.user.email : 'No email' %>
+                      </small>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="items-summary">
+                      <span class="items-count">
+                        <%= order.items.length %> item<%= order.items.length > 1
+                        ? 's' : '' %>
+                      </span>
+                      <button
+                        class="btn btn-sm btn-outline-info ms-2"
+                        onclick="showOrderDetails('<%= order._id %>')"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="order-total">
+                      <strong>₦<%= order.totalPrice.toLocaleString() %></strong>
+                    </div>
+                  </td>
+                  <td>
+                    <span
+                      class="badge status-badge status-<%= order.status.toLowerCase() %>"
+                    >
+                      <i
+                        class="fas fa-<%= order.status === 'Pending' ? 'clock' : order.status === 'Processing' ? 'cog' : order.status === 'Shipped' ? 'truck' : order.status === 'Delivered' ? 'check-circle' : 'times-circle' %>"
+                      ></i>
+                      <%= order.status %>
+                    </span>
+                  </td>
+                  <td>
+                    <div class="order-date">
+                      <%= new Date(order.createdAt).toLocaleDateString() %>
+                      <small class="text-muted d-block">
+                        <%= new Date(order.createdAt).toLocaleTimeString() %>
+                      </small>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <div class="dropdown">
+                        <button
+                          class="btn btn-sm btn-outline-primary dropdown-toggle"
+                          type="button"
+                          data-bs-toggle="dropdown"
+                        >
+                          <i class="fas fa-cog"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <button
+                              class="dropdown-item"
+                              onclick="showOrderDetails('<%= order._id %>')"
+                            >
+                              <i class="fas fa-eye me-2"></i>View Details
+                            </button>
+                          </li>
+                          <% if(order.status === 'Pending') { %>
+                          <li>
+                            <button
+                              class="dropdown-item"
+                              onclick="updateOrderStatus('<%= order._id %>', 'Processing')"
+                            >
+                              <i class="fas fa-cog me-2"></i>Mark as Processing
+                            </button>
+                          </li>
+                          <% } %> <% if(order.status === 'Processing') { %>
+                          <li>
+                            <button
+                              class="dropdown-item"
+                              onclick="updateOrderStatus('<%= order._id %>', 'Shipped')"
+                            >
+                              <i class="fas fa-truck me-2"></i>Mark as Shipped
+                            </button>
+                          </li>
+                          <% } %> <% if(order.status === 'Shipped') { %>
+                          <li>
+                            <button
+                              class="dropdown-item"
+                              onclick="updateOrderStatus('<%= order._id %>', 'Delivered')"
+                            >
+                              <i class="fas fa-check-circle me-2"></i>Mark as
+                              Delivered
+                            </button>
+                          </li>
+                          <% } %> <% if(order.status !== 'Cancelled' &&
+                          order.status !== 'Delivered') { %>
+                          <li><hr class="dropdown-divider" /></li>
+                          <li>
+                            <button
+                              class="dropdown-item text-danger"
+                              onclick="updateOrderStatus('<%= order._id %>', 'Cancelled')"
+                            >
+                              <i class="fas fa-times me-2"></i>Cancel Order
+                            </button>
+                          </li>
+                          <% } %>
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+          <% } else { %>
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-inbox"></i>
+            </div>
+            <h4>No Orders Found</h4>
+            <p class="text-muted">
+              <% if(currentFilter === 'pending') { %> No pending orders at the
+              moment. <% } else if(currentFilter === 'successful') { %> No
+              successful orders found. <% } else if(currentFilter ===
+              'cancelled') { %> No cancelled orders found. <% } else { %> No
+              orders have been placed yet. <% } %>
+            </p>
+          </div>
+          <% } %>
+        </div>
+      </div>
     </main>
+
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fas fa-receipt me-2"></i>Order Details
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body" id="orderDetailsContent">
+            <!-- Order details will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Update Confirmation Modal -->
+    <div class="modal fade" id="statusUpdateModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              <i class="fas fa-edit me-2"></i>Update Order Status
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to update this order status?</p>
+            <div class="alert alert-info">
+              <strong>Order:</strong> <span id="updateOrderId"></span><br />
+              <strong>New Status:</strong> <span id="updateNewStatus"></span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <form id="statusUpdateForm" method="POST" style="display: inline">
+              <input type="hidden" name="status" id="statusInput" />
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check me-1"></i>Update Status
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Order Data for JavaScript -->
+    <script type="application/json" id="orders-data">
+      <%- JSON.stringify(orders || []) %>
+    </script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      // Get orders data from JSON script tag
+      let ordersData = [];
+      try {
+        const ordersScript = document.getElementById("orders-data");
+        if (ordersScript) {
+          ordersData = JSON.parse(ordersScript.textContent);
+        }
+      } catch (e) {
+        console.error("Error parsing orders data:", e);
+        ordersData = [];
+      }
+
+      // Search functionality
+      document
+        .getElementById("searchOrders")
+        .addEventListener("input", function (e) {
+          const searchTerm = e.target.value.toLowerCase();
+          const rows = document.querySelectorAll("#ordersTable tbody tr");
+
+          rows.forEach((row) => {
+            const text = row.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        });
+
+      // Show order details
+      function showOrderDetails(orderId) {
+        const order = ordersData.find((o) => o._id === orderId);
+        if (!order) return;
+
+        const modalContent = document.getElementById("orderDetailsContent");
+
+        let itemsHtml = "";
+        order.items.forEach((item) => {
+          itemsHtml += `
+            <div class="row align-items-center mb-3 p-3 border rounded">
+              <div class="col-md-2">
+                <img src="${
+                  item.product?.imagePath || "/images/placeholder.png"
+                }"
+                     class="img-fluid rounded" alt="Product">
+              </div>
+              <div class="col-md-6">
+                <h6 class="mb-1">${
+                  item.product?.name || "Product Not Found"
+                }</h6>
+                <small class="text-muted">${
+                  item.product?.category || "Unknown Category"
+                }</small>
+              </div>
+              <div class="col-md-2 text-center">
+                <span class="badge bg-secondary">Qty: ${item.quantity}</span>
+              </div>
+              <div class="col-md-2 text-end">
+                <strong>₦${item.price.toLocaleString()}</strong>
+              </div>
+            </div>
+          `;
+        });
+
+        modalContent.innerHTML = `
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <h6>Order Information</h6>
+              <table class="table table-sm">
+                <tr>
+                  <td><strong>Order ID:</strong></td>
+                  <td>#${order._id.slice(-8).toUpperCase()}</td>
+                </tr>
+                <tr>
+                  <td><strong>Status:</strong></td>
+                  <td>
+                    <span class="badge status-badge status-${order.status.toLowerCase()}">
+                      ${order.status}
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Order Date:</strong></td>
+                  <td>${new Date(order.createdAt).toLocaleString()}</td>
+                </tr>
+                <tr>
+                  <td><strong>Payment Method:</strong></td>
+                  <td>${order.paymentMethod}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-6">
+              <h6>Customer Information</h6>
+              <table class="table table-sm">
+                <tr>
+                  <td><strong>Name:</strong></td>
+                  <td>${order.user ? order.user.fullname : "Unknown"}</td>
+                </tr>
+                <tr>
+                  <td><strong>Email:</strong></td>
+                  <td>${order.user?.email || "No email"}</td>
+                </tr>
+                <tr>
+                  <td><strong>Shipping Address:</strong></td>
+                  <td>${order.shippingAddress}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <h6>Order Items</h6>
+          ${itemsHtml}
+
+          <div class="row mt-4">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between">
+                    <strong>Total Amount:</strong>
+                    <strong class="text-primary">₦${order.totalPrice.toLocaleString()}</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        new bootstrap.Modal(
+          document.getElementById("orderDetailsModal")
+        ).show();
+      }
+
+      // Update order status
+      function updateOrderStatus(orderId, newStatus) {
+        document.getElementById("updateOrderId").textContent =
+          "#" + orderId.slice(-8).toUpperCase();
+        document.getElementById("updateNewStatus").textContent = newStatus;
+        document.getElementById("statusInput").value = newStatus;
+        document.getElementById(
+          "statusUpdateForm"
+        ).action = `/admin/updateorderstatus/${orderId}`;
+
+        new bootstrap.Modal(
+          document.getElementById("statusUpdateModal")
+        ).show();
+      }
+
+      // Auto-refresh page every 30 seconds
+      setInterval(() => {
+        if (!document.querySelector(".modal.show")) {
+          location.reload();
+        }
+      }, 30000);
+
+      // Add loading states to action buttons
+      document.querySelectorAll(".dropdown-item").forEach((button) => {
+        button.addEventListener("click", function () {
+          if (
+            this.onclick &&
+            this.onclick.toString().includes("updateOrderStatus")
+          ) {
+            this.innerHTML =
+              '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+            this.disabled = true;
+          }
+        });
+      });
+    </script>
   </body>
 </html>

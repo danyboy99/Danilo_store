@@ -3,58 +3,1202 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Danilo Store</title>
+    <title>Danilo Store - Your Premium Shopping Destination</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/index.css" />
     <style>
-      .navbar-brand img {
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --success-color: #27ae60;
+        --warning-color: #f39c12;
+        --light-bg: #f8f9fa;
+        --dark-text: #2c3e50;
+        --light-text: #7f8c8d;
+        --border-color: #e9ecef;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+        --border-radius: 12px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-text);
+        background-color: var(--light-bg);
+      }
+
+      /* Enhanced Navbar */
+      .navbar {
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        padding: 1rem 0;
+        transition: var(--transition);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        font-size: 1.8rem;
+        color: var(--primary-color) !important;
+        text-decoration: none;
+      }
+
+      .navbar-nav .nav-link {
+        font-weight: 500;
+        color: var(--dark-text) !important;
+        margin: 0 0.5rem;
+        transition: var(--transition);
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: var(--secondary-color) !important;
+      }
+
+      .btn-cart {
+        background: var(--secondary-color);
+        border: none;
+        border-radius: 50px;
+        padding: 0.5rem 1rem;
+        color: white;
+        transition: var(--transition);
+      }
+
+      .btn-cart:hover {
+        background: var(--primary-color);
+        transform: translateY(-2px);
+      }
+
+      /* Hero Section */
+      .hero-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color) 0%,
+          var(--secondary-color) 100%
+        );
+        color: white;
+        padding: 4rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="1000,100 1000,0 0,100"/></svg>');
+        background-size: cover;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease-out 0.2s both;
+      }
+
+      .hero-cta {
+        animation: fadeInUp 1s ease-out 0.4s both;
+      }
+
+      .btn-hero {
+        background: var(--accent-color);
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        transition: var(--transition);
+        margin-right: 1rem;
+      }
+
+      .btn-hero:hover {
+        background: #c0392b;
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
+        color: white;
+      }
+
+      .btn-hero-outline {
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+      }
+
+      .btn-hero-outline:hover {
+        background: white;
+        color: var(--primary-color);
+      }
+
+      /* Features Section */
+      .features-section {
+        background: white;
+      }
+
+      .feature-card {
+        padding: 2rem 1rem;
+        transition: var(--transition);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 1rem;
+        background: linear-gradient(
+          135deg,
+          var(--secondary-color),
+          var(--primary-color)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+      }
+
+      .feature-card h5 {
+        color: var(--dark-text);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-card p {
+        color: var(--light-text);
+        font-size: 0.9rem;
+        margin: 0;
+      }
+
+      /* Products Section */
+      .products-section {
+        background: var(--light-bg);
+      }
+
+      .section-header {
+        margin-bottom: 3rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.1rem;
+        color: var(--light-text);
+        margin: 0;
+      }
+
+      .product-image-wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+      }
+
+      .product-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .product-overlay {
+        opacity: 1;
+      }
+
+      .btn-view {
+        background: white;
+        color: var(--dark-text);
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      .btn-view:hover {
+        background: var(--secondary-color);
+        color: white;
+        transform: scale(1.05);
+      }
+
+      .product-category {
+        margin-bottom: 0.5rem;
+      }
+
+      .product-category .badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      /* Newsletter Section */
+      .newsletter-section {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+      }
+
+      .newsletter-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .newsletter-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .newsletter-form .form-control {
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 50px 0 0 50px;
+        font-size: 1rem;
+      }
+
+      .btn-newsletter {
+        background: var(--accent-color);
+        border: none;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0 50px 50px 0;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      .btn-newsletter:hover {
+        background: #c0392b;
+        color: white;
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--dark-text);
+        color: white;
+        padding: 3rem 0 1rem;
+      }
+
+      .footer-title {
+        color: white;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .footer-subtitle {
+        color: var(--secondary-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .footer-text {
+        color: #bdc3c7;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-links a {
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        color: var(--secondary-color);
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-link {
+        width: 40px;
         height: 40px;
+        background: var(--secondary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        text-decoration: none;
+        transition: var(--transition);
       }
-      .product-card img {
-        object-fit: cover;
-        height: 200px;
+
+      .social-link:hover {
+        background: var(--accent-color);
+        color: white;
+        transform: translateY(-3px);
       }
-      .product-card {
-        min-height: 420px;
+
+      .contact-info {
+        margin: 0;
       }
-      .dropdown-menu.show {
-        display: block;
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        color: #bdc3c7;
       }
-      .server-msg {
+
+      .contact-item i {
+        width: 20px;
+        margin-right: 1rem;
+        color: var(--secondary-color);
+      }
+
+      .footer-divider {
+        border-color: #34495e;
+        margin: 2rem 0 1rem;
+      }
+
+      .copyright {
+        color: #bdc3c7;
+        margin: 0;
+      }
+
+      .footer-bottom-links {
+        display: flex;
+        gap: 1rem;
+        justify-content: end;
+      }
+
+      .footer-bottom-links a {
+        color: #bdc3c7;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .footer-bottom-links a:hover {
+        color: var(--secondary-color);
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      /* Enhanced Flash Messages */
+      .flash-messages-container {
+        position: sticky;
+        top: 80px;
+        z-index: 1050;
         margin: 1rem 0;
       }
-      @media (max-width: 576px) {
-        .product-card img {
-          height: 150px;
+
+      .flash-message {
+        border: none;
+        border-radius: var(--border-radius);
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        box-shadow: var(--shadow-hover);
+        border-left: 4px solid;
+        animation: slideInFromTop 0.5s ease-out;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .flash-message::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      .flash-message.alert-success {
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+        color: #155724;
+        border-left-color: var(--success-color);
+      }
+
+      .flash-message.alert-danger {
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+        color: #721c24;
+        border-left-color: var(--accent-color);
+      }
+
+      .alert-content {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+      }
+
+      .alert-content i {
+        font-size: 1.1rem;
+        margin-right: 0.5rem;
+      }
+
+      .flash-message .btn-close {
+        position: relative;
+        padding: 0.5rem;
+        opacity: 0.7;
+        transition: var(--transition);
+      }
+
+      .flash-message .btn-close:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+
+      /* Flash Message Animations */
+      @keyframes slideInFromTop {
+        from {
+          opacity: 0;
+          transform: translateY(-100%);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* Auto-hide flash messages */
+      .flash-message.auto-hide {
+        animation: slideInFromTop 0.5s ease-out,
+          fadeOut 0.5s ease-out 4s forwards;
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+      }
+
+      /* Mobile Navigation Improvements */
+      .navbar-toggler {
+        border: none;
+        padding: 0.5rem;
+        background: var(--secondary-color);
+        border-radius: 8px;
+        transition: var(--transition);
+      }
+
+      .navbar-toggler:focus {
+        box-shadow: none;
+        background: var(--primary-color);
+      }
+
+      .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      /* Mobile Menu Styling */
+      .mobile-menu-header {
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 1rem;
+      }
+
+      .mobile-user-info {
+        background: var(--light-bg);
+        padding: 1rem;
+        border-radius: var(--border-radius);
+      }
+
+      .mobile-user-menu {
+        padding-top: 1rem;
+      }
+
+      .mobile-nav-link {
+        display: block;
+        padding: 0.75rem 1rem !important;
+        margin-bottom: 0.5rem;
+        border-radius: 8px;
+        transition: var(--transition);
+        text-decoration: none;
+        color: var(--dark-text);
+        background: var(--light-bg);
+      }
+
+      .mobile-nav-link:hover {
+        background: var(--secondary-color);
+        color: white !important;
+        transform: translateX(5px);
+      }
+
+      .mobile-nav-link.text-danger:hover {
+        background: var(--accent-color);
+        color: white !important;
+      }
+
+      /* Mobile Cart Button */
+      .btn-cart.me-2 {
+        padding: 0.5rem;
+        border-radius: 8px;
+        min-width: auto;
+      }
+
+      .btn-cart.me-2 .badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+      }
+
+      /* Mobile Dropdown Improvements */
+      @media (max-width: 991.98px) {
+        .navbar-collapse {
+          background: white;
+          border-radius: var(--border-radius);
+          box-shadow: var(--shadow-hover);
+          margin-top: 1rem;
+          padding: 1rem;
+          border: 1px solid var(--border-color);
+        }
+
+        .navbar-nav {
+          gap: 0.5rem;
+        }
+
+        .nav-item {
+          width: 100%;
+        }
+
+        .nav-link {
+          padding: 0.75rem 1rem !important;
+          border-radius: 8px;
+          transition: var(--transition);
+          font-weight: 500;
+        }
+
+        .nav-link:hover {
+          background: var(--light-bg);
+          color: var(--secondary-color) !important;
+        }
+
+        .dropdown-menu {
+          border: none;
+          box-shadow: none;
+          background: var(--light-bg);
+          margin-top: 0.5rem;
+          border-radius: 8px;
+          padding: 0.5rem;
+          position: static !important;
+          transform: none !important;
+          width: 100%;
+          display: none;
+        }
+
+        .dropdown-menu.show {
+          display: block !important;
+          animation: slideDown 0.2s ease-out;
+        }
+
+        .dropdown-item {
+          padding: 0.75rem 1rem;
+          border-radius: 6px;
+          margin-bottom: 0.25rem;
+          transition: var(--transition);
+          display: flex;
+          align-items: center;
+        }
+
+        .dropdown-item:hover {
+          background: white;
+          color: var(--secondary-color);
+        }
+
+        .dropdown-item:active {
+          background: var(--secondary-color);
+          color: white;
+        }
+
+        /* Mobile dropdown toggle styling */
+        .nav-item.dropdown .nav-link.dropdown-toggle::after {
+          display: none; /* Hide default Bootstrap arrow */
+        }
+
+        .dropdown-arrow {
+          transition: transform 0.3s ease;
+          font-size: 0.8rem;
+        }
+
+        .nav-item.dropdown.show .dropdown-arrow {
+          transform: rotate(180deg);
+        }
+
+        /* Mobile dropdown visual feedback */
+        .nav-item.dropdown .nav-link:active {
+          transform: scale(0.98);
+        }
+
+        .btn-cart {
+          width: 100%;
+          justify-content: center;
+          margin-bottom: 0.5rem;
+          padding: 0.75rem 1rem;
+        }
+
+        /* Mobile-specific navbar layout */
+        .navbar-nav.align-items-center {
+          align-items: stretch !important;
+        }
+
+        .navbar-nav .nav-item.me-3 {
+          margin-right: 0 !important;
+          margin-bottom: 0.5rem;
+        }
+
+        /* User dropdown mobile styling */
+        .nav-link.dropdown-toggle {
+          justify-content: space-between;
+        }
+
+        .d-none.d-md-inline {
+          display: inline !important;
+        }
+
+        /* Mobile navbar improvements */
+        .navbar-collapse.show {
+          animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Mobile navigation spacing */
+        .navbar-nav .nav-item {
+          margin-bottom: 0.25rem;
+        }
+
+        .navbar-nav .nav-link {
+          border-radius: 8px;
+          margin-bottom: 0.25rem;
+        }
+
+        /* Mobile dropdown improvements */
+        .dropdown-menu.show {
+          animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+            max-height: 0;
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 300px;
+          }
+        }
+
+        /* Mobile category dropdown specific styling */
+        .nav-item.dropdown {
+          margin-bottom: 0.5rem;
+        }
+
+        .nav-item.dropdown .nav-link {
+          background: var(--light-bg);
+          border-radius: 8px;
+          margin-bottom: 0.25rem;
+          font-weight: 600;
+          position: relative;
+        }
+
+        .nav-item.dropdown.show .nav-link {
+          background: var(--secondary-color);
+          color: white !important;
+        }
+
+        .nav-item.dropdown .dropdown-menu {
+          background: white;
+          border: 1px solid var(--border-color);
+          box-shadow: var(--shadow);
+          margin-top: 0.25rem;
+          margin-left: 1rem;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+
+        .nav-item.dropdown .dropdown-item {
+          padding: 0.75rem 1rem;
+          border-bottom: 1px solid var(--border-color);
+          transition: var(--transition);
+        }
+
+        .nav-item.dropdown .dropdown-item:last-child {
+          border-bottom: none;
+        }
+
+        .nav-item.dropdown .dropdown-item:hover {
+          background: var(--light-bg);
+          color: var(--secondary-color);
+          padding-left: 1.25rem;
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        /* Container padding adjustments */
+        .container {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        /* Hero section mobile */
+        .hero-title {
+          font-size: 2.2rem;
+          line-height: 1.2;
+          margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1rem;
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+
+        .btn-hero {
+          padding: 0.75rem 1.5rem;
+          font-size: 0.95rem;
+          margin-bottom: 0.75rem;
+          display: block;
+          text-align: center;
+          width: 100%;
+        }
+
+        .hero-section {
+          padding: 2.5rem 0;
+        }
+
+        .hero-image {
+          margin-top: 2rem;
+        }
+
+        .hero-image i {
+          font-size: 8rem !important;
+        }
+
+        /* Section titles */
+        .section-title {
+          font-size: 1.8rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .section-subtitle {
+          font-size: 1rem;
+        }
+
+        /* Features section mobile */
+        .feature-card {
+          padding: 1.5rem 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .feature-icon {
+          width: 70px;
+          height: 70px;
+          font-size: 1.8rem;
+          margin-bottom: 1rem;
+        }
+
+        /* Products grid mobile */
+        .products-section .row.g-4 {
+          gap: 1rem !important;
+        }
+
         .product-card {
-          min-height: 350px;
+          margin-bottom: 1rem;
+          border-radius: var(--border-radius);
+          overflow: hidden;
+        }
+
+        .product-card .card-img-top {
+          height: 180px;
+        }
+
+        .product-card .card-body {
+          padding: 1rem;
+        }
+
+        .product-card .card-title {
+          font-size: 1rem;
+          line-height: 1.3;
+        }
+
+        .product-card .price {
+          font-size: 1.1rem;
+          font-weight: 700;
+        }
+
+        .btn-add-cart {
+          padding: 0.75rem;
+          font-size: 0.9rem;
+          border-radius: 8px;
+        }
+
+        /* Newsletter mobile */
+        .newsletter-form .input-group {
+          flex-direction: column;
+        }
+
+        .newsletter-form .form-control {
+          border-radius: 8px;
+          margin-bottom: 0.75rem;
+          padding: 1rem;
+        }
+
+        .btn-newsletter {
+          border-radius: 8px;
+          padding: 1rem;
+          width: 100%;
+        }
+
+        /* Footer mobile */
+        .footer-bottom-links {
+          justify-content: center;
+          margin-top: 1rem;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
+        .social-links {
+          justify-content: center;
+          margin-top: 1rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        /* Extra small devices */
+        .container {
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
+        }
+
+        /* Navbar brand smaller */
+        .navbar-brand {
+          font-size: 1.4rem;
+        }
+
+        /* Hero section extra small */
+        .hero-title {
+          font-size: 1.8rem;
+          line-height: 1.1;
+        }
+
+        .hero-subtitle {
+          font-size: 0.95rem;
+        }
+
+        .hero-image i {
+          font-size: 6rem !important;
+        }
+
+        /* Section titles smaller */
+        .section-title {
+          font-size: 1.6rem;
+        }
+
+        .newsletter-title {
+          font-size: 1.4rem;
+        }
+
+        /* Feature icons smaller */
+        .feature-icon {
+          width: 60px;
+          height: 60px;
+          font-size: 1.5rem;
+        }
+
+        /* Product cards mobile optimization */
+        .product-card .card-body {
+          padding: 1rem;
+        }
+
+        .product-card .card-title {
+          font-size: 1rem;
+        }
+
+        .price {
+          font-size: 1.1rem;
+        }
+
+        /* Footer mobile optimization */
+        .footer {
+          padding: 2rem 0 1rem;
+        }
+
+        .footer-section {
+          margin-bottom: 2rem;
+          text-align: center;
+        }
+
+        .footer-links {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+        }
+
+        .footer-links li {
+          margin-bottom: 0;
+        }
+
+        .contact-item {
+          justify-content: center;
+          text-align: center;
+        }
+
+        .footer-bottom-links {
+          flex-direction: column;
+          align-items: center;
+          gap: 0.75rem;
+        }
+      }
+
+      /* Landscape phone optimization */
+      @media (max-width: 896px) and (orientation: landscape) {
+        .hero-section {
+          padding: 2rem 0;
+        }
+
+        .hero-title {
+          font-size: 2rem;
+        }
+
+        .hero-image i {
+          font-size: 6rem !important;
+        }
+
+        .features-section {
+          padding: 2rem 0 !important;
+        }
+
+        .products-section {
+          padding: 2rem 0 !important;
+        }
+      }
+
+      /* Scroll to Top Button */
+      .scroll-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 50px;
+        height: 50px;
+        background: var(--secondary-color);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        z-index: 1000;
+        box-shadow: var(--shadow-hover);
+      }
+
+      .scroll-to-top.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .scroll-to-top:hover {
+        background: var(--primary-color);
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 768px) {
+        .scroll-to-top {
+          bottom: 1rem;
+          right: 1rem;
+          width: 45px;
+          height: 45px;
+          font-size: 1rem;
         }
       }
     </style>
   </head>
   <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <!-- Enhanced Navbar -->
+    <nav class="navbar navbar-expand-lg">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="/">Danilo Store</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand" href="/">
+          <i class="fas fa-store me-2"></i>Danilo Store
+        </a>
+
+        <!-- Mobile Cart and User Icons (visible on mobile) -->
+        <div class="d-lg-none d-flex align-items-center">
+          <a
+            href="/user/shoppingcart"
+            class="btn btn-cart me-2 position-relative"
+          >
+            <i class="fas fa-shopping-cart"></i>
+            <span
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            >
+              <%= cart ? cart.totalQty : 0 %>
+            </span>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <!-- Mobile Menu Header -->
+          <div class="d-lg-none mobile-menu-header">
+            <div class="mobile-user-info">
+              <% if(isLoggedin){ %>
+              <div class="d-flex align-items-center mb-3">
+                <img
+                  src="/<%= user.profilepics %>"
+                  alt="Profile"
+                  class="rounded-circle me-3"
+                  style="width: 40px; height: 40px; object-fit: cover"
+                />
+                <div>
+                  <div class="fw-bold">Welcome back!</div>
+                  <small class="text-muted">Manage your account</small>
+                </div>
+              </div>
+              <% } else { %>
+              <div class="text-center mb-3">
+                <i
+                  class="fas fa-user-circle"
+                  style="font-size: 2rem; color: var(--secondary-color)"
+                ></i>
+                <div class="mt-2">
+                  <small class="text-muted"
+                    >Sign in to access your account</small
+                  >
+                </div>
+              </div>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- Navigation Links -->
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item dropdown">
               <a
@@ -63,27 +1207,40 @@
                 id="categoryDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                Categories
+                <i class="fas fa-th-large me-2"></i>Categories
+                <span class="d-lg-none float-end">
+                  <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </span>
               </a>
               <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
                 <% catigory.forEach(cat =>{ %>
                 <li>
-                  <a class="dropdown-item" href="/category/<%= cat %>"
-                    ><%= cat %></a
-                  >
+                  <a class="dropdown-item" href="/category/<%= cat %>">
+                    <i class="fas fa-tag me-2"></i><%= cat %>
+                  </a>
                 </li>
                 <% })%>
               </ul>
             </li>
+            <li class="nav-item d-lg-none">
+              <a class="nav-link" href="#products">
+                <i class="fas fa-box me-2"></i>Products
+              </a>
+            </li>
           </ul>
-          <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
+
+          <!-- Desktop Cart and User Menu -->
+          <ul
+            class="navbar-nav mb-2 mb-lg-0 align-items-center d-none d-lg-flex"
+          >
             <li class="nav-item me-3">
               <a
                 href="/user/shoppingcart"
-                class="btn btn-outline-secondary position-relative"
+                class="btn btn-cart position-relative"
               >
-                <i class="fa fa-shopping-cart"></i>
+                <i class="fas fa-shopping-cart me-1"></i>Cart
                 <span
                   class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                 >
@@ -99,30 +1256,40 @@
                 id="userDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
                 <img
                   src="/<%= user.profilepics %>"
                   alt="Profile"
-                  class="rounded-circle"
+                  class="rounded-circle me-2"
                   style="width: 32px; height: 32px; object-fit: cover"
                 />
+                <span>Account</span>
               </a>
               <ul
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="userDropdown"
               >
                 <li>
-                  <a class="dropdown-item" href="/user/profile">Profile</a>
+                  <a class="dropdown-item" href="/user/profile">
+                    <i class="fas fa-user me-2"></i>Profile
+                  </a>
                 </li>
-                <li><a class="dropdown-item" href="/user/orders">Orders</a></li>
                 <li>
-                  <a class="dropdown-item" href="/user/settings">Settings</a>
+                  <a class="dropdown-item" href="/user/orders">
+                    <i class="fas fa-box me-2"></i>Orders
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/user/settings">
+                    <i class="fas fa-cog me-2"></i>Settings
+                  </a>
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item text-danger" href="/user/logout"
-                    >Log Out</a
-                  >
+                  <a class="dropdown-item text-danger" href="/user/logout">
+                    <i class="fas fa-sign-out-alt me-2"></i>Log Out
+                  </a>
                 </li>
               </ul>
               <% } else { %>
@@ -132,97 +1299,567 @@
                 id="userDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                <img
-                  src="/images/download.png"
-                  alt="Login"
-                  class="rounded-circle"
-                  style="width: 32px; height: 32px"
-                />
+                <i
+                  class="fas fa-user-circle me-2"
+                  style="font-size: 1.5rem"
+                ></i>
+                <span>Account</span>
               </a>
               <ul
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="userDropdown"
               >
-                <li><a class="dropdown-item" href="/user/login">Login</a></li>
                 <li>
-                  <a class="dropdown-item" href="/user/signup">Sign Up</a>
+                  <a class="dropdown-item" href="/user/login">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/user/signup">
+                    <i class="fas fa-user-plus me-2"></i>Sign Up
+                  </a>
                 </li>
               </ul>
               <% } %>
             </li>
           </ul>
+
+          <!-- Mobile User Menu -->
+          <div class="d-lg-none mobile-user-menu">
+            <hr class="my-3" />
+            <% if(isLoggedin){ %>
+            <a class="nav-link mobile-nav-link" href="/user/profile">
+              <i class="fas fa-user me-2"></i>My Profile
+            </a>
+            <a class="nav-link mobile-nav-link" href="/user/orders">
+              <i class="fas fa-box me-2"></i>My Orders
+            </a>
+            <a class="nav-link mobile-nav-link" href="/user/settings">
+              <i class="fas fa-cog me-2"></i>Settings
+            </a>
+            <a class="nav-link mobile-nav-link text-danger" href="/user/logout">
+              <i class="fas fa-sign-out-alt me-2"></i>Log Out
+            </a>
+            <% } else { %>
+            <a class="nav-link mobile-nav-link" href="/user/login">
+              <i class="fas fa-sign-in-alt me-2"></i>Sign In
+            </a>
+            <a class="nav-link mobile-nav-link" href="/user/signup">
+              <i class="fas fa-user-plus me-2"></i>Create Account
+            </a>
+            <% } %>
+          </div>
         </div>
       </div>
     </nav>
 
-    <!-- Server Messages -->
-    <div class="container server-msg">
-      <% if(hasErr){ errMsg.forEach(message =>{ %>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <%= message %>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-        ></button>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="hero-content">
+              <h1 class="hero-title">Welcome to Danilo Store</h1>
+              <p class="hero-subtitle">
+                Discover premium quality products at unbeatable prices. Your
+                one-stop destination for all your shopping needs.
+              </p>
+              <div class="hero-cta">
+                <% if(isLoggedin){ %>
+                <a href="#products" class="btn btn-hero">Shop Now</a>
+                <a href="/user/profile" class="btn btn-hero btn-hero-outline"
+                  >My Account</a
+                >
+                <% } else { %>
+                <a href="/user/signup" class="btn btn-hero">Get Started</a>
+                <a href="/user/login" class="btn btn-hero btn-hero-outline"
+                  >Sign In</a
+                >
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="hero-image text-center">
+              <i
+                class="fas fa-shopping-bag"
+                style="font-size: 15rem; opacity: 0.3"
+              ></i>
+            </div>
+          </div>
+        </div>
       </div>
-      <% }) } %> <% if(hasSuccess){ successMsg.forEach(message =>{ %>
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <%= message %>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-        ></button>
-      </div>
-      <% }) } %>
-    </div>
+    </section>
 
-    <!-- Product Grid -->
-    <main class="container my-4">
-      <div class="row g-4">
-        <% product.forEach(prod =>{ %>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-          <div class="card product-card h-100 shadow-sm">
-            <a
-              href="/user/product/<%= prod._id %>"
-              class="text-decoration-none text-dark"
-            >
-              <img
-                src="<%= prod.imagePath %>"
-                class="card-img-top"
-                alt="<%= prod.name %>"
-              />
+    <!-- Enhanced Server Messages -->
+    <% if(hasErr || hasSuccess){ %>
+    <div class="flash-messages-container">
+      <div class="container">
+        <% if(hasErr){ errMsg.forEach(message =>{ %>
+        <div
+          class="alert alert-danger alert-dismissible fade show flash-message"
+          role="alert"
+        >
+          <div class="alert-content">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <span><%= message %></span>
+          </div>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        <% }) } %> <% if(hasSuccess){ successMsg.forEach(message =>{ %>
+        <div
+          class="alert alert-success alert-dismissible fade show flash-message"
+          role="alert"
+        >
+          <div class="alert-content">
+            <i class="fas fa-check-circle me-2"></i>
+            <span><%= message %></span>
+          </div>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        <% }) } %>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- Features Section -->
+    <section class="features-section py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-3 col-sm-6">
+            <div class="feature-card text-center">
+              <div class="feature-icon">
+                <i class="fas fa-shipping-fast"></i>
+              </div>
+              <h5>Fast Delivery</h5>
+              <p>Quick and reliable shipping to your doorstep</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="feature-card text-center">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h5>Secure Payment</h5>
+              <p>Your transactions are safe and protected</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="feature-card text-center">
+              <div class="feature-icon">
+                <i class="fas fa-undo-alt"></i>
+              </div>
+              <h5>Easy Returns</h5>
+              <p>Hassle-free return policy within 30 days</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="feature-card text-center">
+              <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+              </div>
+              <h5>24/7 Support</h5>
+              <p>Round-the-clock customer service</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products-section py-5">
+      <div class="container">
+        <div class="section-header text-center mb-5">
+          <h2 class="section-title">Featured Products</h2>
+          <p class="section-subtitle">
+            Discover our handpicked selection of premium products
+          </p>
+        </div>
+        <div class="row g-4">
+          <% product.forEach(prod =>{ %>
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card product-card h-100">
+              <div class="product-image-wrapper">
+                <img
+                  src="<%= prod.imagePath %>"
+                  class="card-img-top"
+                  alt="<%= prod.name %>"
+                />
+                <div class="product-overlay">
+                  <a href="/user/product/<%= prod._id %>" class="btn btn-view">
+                    <i class="fas fa-eye"></i> Quick View
+                  </a>
+                </div>
+              </div>
               <div class="card-body d-flex flex-column">
-                <h5 class="card-title"><%= prod.name %></h5>
-                <p class="card-text text-muted mb-1"><%= prod.category %></p>
-                <h6 class="card-subtitle mb-2 text-success">
-                  ₦<%= prod.price %>
-                </h6>
-                <div class="mt-auto">
+                <div class="product-category">
+                  <span class="badge bg-secondary"><%= prod.category %></span>
+                </div>
+                <h5 class="card-title mt-2"><%= prod.name %></h5>
+                <div class="price-section mt-auto">
+                  <h6 class="price">₦<%= prod.price.toLocaleString() %></h6>
                   <% if(isLoggedin){ %>
                   <a
                     href="/user/addtocart/<%= prod._id %>"
-                    class="btn btn-primary w-100"
+                    class="btn btn-add-cart w-100 mt-2"
                   >
-                    Add to cart
+                    <i class="fas fa-cart-plus me-1"></i>Add to Cart
                   </a>
                   <% } else { %>
-                  <a href="/user/login" class="btn btn-outline-secondary w-100">
-                    Shop With Us
+                  <a href="/user/login" class="btn btn-add-cart w-100 mt-2">
+                    <i class="fas fa-sign-in-alt me-1"></i>Shop With Us
                   </a>
                   <% } %>
                 </div>
               </div>
-            </a>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6 text-center">
+            <h3 class="newsletter-title">Stay Updated</h3>
+            <p class="newsletter-subtitle">
+              Subscribe to get special offers, free giveaways, and updates on
+              new arrivals.
+            </p>
+            <form class="newsletter-form">
+              <div class="input-group">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Enter your email address"
+                  required
+                />
+                <button class="btn btn-newsletter" type="submit">
+                  <i class="fas fa-paper-plane me-1"></i>Subscribe
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-        <% }) %>
       </div>
-    </main>
+    </section>
 
-    <!-- Bootstrap JS (for dropdowns, navbar, etc.) -->
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-section">
+              <h5 class="footer-title">
+                <i class="fas fa-store me-2"></i>Danilo Store
+              </h5>
+              <p class="footer-text">
+                Your trusted partner for premium quality products. We're
+                committed to providing exceptional shopping experiences with
+                unbeatable prices and outstanding customer service.
+              </p>
+              <div class="social-links">
+                <a href="#" class="social-link"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a href="#" class="social-link"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a href="#" class="social-link"
+                  ><i class="fab fa-instagram"></i
+                ></a>
+                <a href="#" class="social-link"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <div class="footer-section">
+              <h6 class="footer-subtitle">Quick Links</h6>
+              <ul class="footer-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="/user/profile">My Account</a></li>
+                <li><a href="/user/orders">Orders</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <div class="footer-section">
+              <h6 class="footer-subtitle">Categories</h6>
+              <ul class="footer-links">
+                <% catigory.slice(0, 4).forEach(cat =>{ %>
+                <li><a href="/category/<%= cat %>"><%= cat %></a></li>
+                <% })%>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-section">
+              <h6 class="footer-subtitle">Contact Info</h6>
+              <div class="contact-info">
+                <div class="contact-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>123 Shopping Street, Lagos, Nigeria</span>
+                </div>
+                <div class="contact-item">
+                  <i class="fas fa-phone"></i>
+                  <span>+234 123 456 7890</span>
+                </div>
+                <div class="contact-item">
+                  <i class="fas fa-envelope"></i>
+                  <span>info@danilostore.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="footer-divider" />
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <p class="copyright">
+              &copy; 2024 Danilo Store. All rights reserved.
+            </p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <div class="footer-bottom-links">
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+              <a href="#">Support</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" title="Go to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Newsletter form submission
+      document
+        .querySelector(".newsletter-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const email = this.querySelector('input[type="email"]').value;
+          if (email) {
+            alert(
+              "Thank you for subscribing! We'll keep you updated with our latest offers."
+            );
+            this.reset();
+          }
+        });
+
+      // Add loading animation to cart buttons
+      document.querySelectorAll(".btn-add-cart").forEach((button) => {
+        button.addEventListener("click", function () {
+          const originalText = this.innerHTML;
+          this.innerHTML =
+            '<i class="fas fa-spinner fa-spin me-1"></i>Adding...';
+          this.disabled = true;
+
+          setTimeout(() => {
+            this.innerHTML = originalText;
+            this.disabled = false;
+          }, 1000);
+        });
+      });
+
+      // Scroll to top functionality
+      const scrollToTopBtn = document.getElementById("scrollToTop");
+
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 300) {
+          scrollToTopBtn.classList.add("show");
+        } else {
+          scrollToTopBtn.classList.remove("show");
+        }
+      });
+
+      scrollToTopBtn.addEventListener("click", function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+
+      // Close mobile menu when clicking on a link (but not dropdown toggles)
+      document
+        .querySelectorAll(
+          ".navbar-nav .nav-link:not(.dropdown-toggle), .mobile-nav-link, .dropdown-item"
+        )
+        .forEach((link) => {
+          link.addEventListener("click", function (e) {
+            // Only close menu for actual navigation links, not dropdown toggles
+            if (!this.classList.contains("dropdown-toggle")) {
+              const navbarCollapse = document.querySelector(".navbar-collapse");
+              if (navbarCollapse.classList.contains("show")) {
+                const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                  toggle: false,
+                });
+                bsCollapse.hide();
+              }
+            }
+          });
+        });
+
+      // Handle mobile dropdown behavior
+      document.addEventListener("DOMContentLoaded", function () {
+        const isMobile = window.innerWidth < 992;
+
+        if (isMobile) {
+          // Custom dropdown behavior for mobile
+          const dropdownToggle = document.querySelector("#categoryDropdown");
+          const dropdownMenu = dropdownToggle.nextElementSibling;
+          const dropdownArrow = dropdownToggle.querySelector(".dropdown-arrow");
+
+          dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const isOpen = dropdownMenu.classList.contains("show");
+
+            // Close all other dropdowns first
+            document.querySelectorAll(".dropdown-menu.show").forEach((menu) => {
+              if (menu !== dropdownMenu) {
+                menu.classList.remove("show");
+                menu.parentElement.classList.remove("show");
+                // Reset other arrows
+                const otherArrow =
+                  menu.parentElement.querySelector(".dropdown-arrow");
+                if (otherArrow) {
+                  otherArrow.style.transform = "";
+                }
+              }
+            });
+
+            // Toggle current dropdown
+            if (isOpen) {
+              dropdownMenu.classList.remove("show");
+              this.parentElement.classList.remove("show");
+              if (dropdownArrow) {
+                dropdownArrow.style.transform = "";
+              }
+            } else {
+              dropdownMenu.classList.add("show");
+              this.parentElement.classList.add("show");
+              if (dropdownArrow) {
+                dropdownArrow.style.transform = "rotate(180deg)";
+              }
+            }
+          });
+
+          // Prevent dropdown menu clicks from closing the main menu
+          dropdownMenu.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+        }
+      });
+
+      // Handle window resize to reset dropdown behavior
+      window.addEventListener("resize", function () {
+        const dropdownMenus = document.querySelectorAll(".dropdown-menu");
+        dropdownMenus.forEach((menu) => {
+          menu.classList.remove("show");
+          menu.parentElement.classList.remove("show");
+        });
+      });
+
+      // Improve mobile menu UX
+      const navbarToggler = document.querySelector(".navbar-toggler");
+      const navbarCollapse = document.querySelector(".navbar-collapse");
+
+      navbarToggler.addEventListener("click", function () {
+        setTimeout(() => {
+          if (navbarCollapse.classList.contains("show")) {
+            document.body.style.overflow = "hidden";
+          } else {
+            document.body.style.overflow = "";
+          }
+        }, 100);
+      });
+
+      // Reset body overflow when collapse is hidden
+      navbarCollapse.addEventListener("hidden.bs.collapse", function () {
+        document.body.style.overflow = "";
+      });
+
+      // Add touch feedback for mobile buttons
+      document
+        .querySelectorAll(".btn, .nav-link, .mobile-nav-link")
+        .forEach((element) => {
+          element.addEventListener("touchstart", function () {
+            this.style.transform = "scale(0.98)";
+          });
+
+          element.addEventListener("touchend", function () {
+            this.style.transform = "";
+          });
+        });
+
+      // Auto-hide flash messages after 5 seconds
+      document.querySelectorAll(".flash-message").forEach((message) => {
+        setTimeout(() => {
+          if (message && message.parentNode) {
+            message.style.animation = "fadeOut 0.5s ease-out forwards";
+            setTimeout(() => {
+              if (message && message.parentNode) {
+                message.remove();
+              }
+            }, 500);
+          }
+        }, 5000);
+      });
+
+      // Add click to dismiss functionality for flash messages
+      document.querySelectorAll(".flash-message").forEach((message) => {
+        message.addEventListener("click", function (e) {
+          if (!e.target.classList.contains("btn-close")) {
+            this.style.animation = "fadeOut 0.5s ease-out forwards";
+            setTimeout(() => {
+              if (this && this.parentNode) {
+                this.remove();
+              }
+            }, 500);
+          }
+        });
+      });
+    </script>
   </body>
 </html>

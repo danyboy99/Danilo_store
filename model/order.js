@@ -5,7 +5,7 @@ const orderSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: "User", // Make sure this matches your User model name
+      ref: "user", // Match the lowercase "user" model name
       required: true,
     },
     items: [
@@ -43,4 +43,6 @@ const orderSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("Order", orderSchema);
+const Order = mongoose.model("Order", orderSchema);
+
+module.exports = Order;
