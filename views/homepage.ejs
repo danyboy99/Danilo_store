@@ -1739,66 +1739,101 @@
           });
         });
 
-      // Handle mobile dropdown behavior
+      // Handle mobile dropdown behavior - Fixed for mobile category dropdown
       document.addEventListener("DOMContentLoaded", function () {
-        const isMobile = window.innerWidth < 992;
+        const dropdownToggle = document.querySelector("#categoryDropdown");
+        const dropdownMenu = dropdownToggle
+          ? dropdownToggle.nextElementSibling
+          : null;
+        const dropdownArrow = dropdownToggle
+          ? dropdownToggle.querySelector(".dropdown-arrow")
+          : null;
 
-        if (isMobile) {
-          // Custom dropdown behavior for mobile
-          const dropdownToggle = document.querySelector("#categoryDropdown");
-          const dropdownMenu = dropdownToggle.nextElementSibling;
-          const dropdownArrow = dropdownToggle.querySelector(".dropdown-arrow");
+        if (dropdownToggle && dropdownMenu) {
+          // Remove Bootstrap's default dropdown behavior on mobile
+          dropdownToggle.removeAttribute("data-bs-toggle");
 
           dropdownToggle.addEventListener("click", function (e) {
             e.preventDefault();
             e.stopPropagation();
 
-            const isOpen = dropdownMenu.classList.contains("show");
+            // Check if we're on mobile
+            const isMobile = window.innerWidth < 992;
 
-            // Close all other dropdowns first
-            document.querySelectorAll(".dropdown-menu.show").forEach((menu) => {
-              if (menu !== dropdownMenu) {
-                menu.classList.remove("show");
-                menu.parentElement.classList.remove("show");
-                // Reset other arrows
-                const otherArrow =
-                  menu.parentElement.querySelector(".dropdown-arrow");
-                if (otherArrow) {
-                  otherArrow.style.transform = "";
+            if (isMobile) {
+              const isOpen = dropdownMenu.classList.contains("show");
+
+              // Close all other dropdowns first
+              document
+                .querySelectorAll(".dropdown-menu.show")
+                .forEach((menu) => {
+                  if (menu !== dropdownMenu) {
+                    menu.classList.remove("show");
+                    menu.parentElement.classList.remove("show");
+                    // Reset other arrows
+                    const otherArrow =
+                      menu.parentElement.querySelector(".dropdown-arrow");
+                    if (otherArrow) {
+                      otherArrow.style.transform = "";
+                    }
+                  }
+                });
+
+              // Toggle current dropdown
+              if (isOpen) {
+                dropdownMenu.classList.remove("show");
+                this.parentElement.classList.remove("show");
+                if (dropdownArrow) {
+                  dropdownArrow.style.transform = "";
+                }
+              } else {
+                dropdownMenu.classList.add("show");
+                this.parentElement.classList.add("show");
+                if (dropdownArrow) {
+                  dropdownArrow.style.transform = "rotate(180deg)";
                 }
               }
-            });
-
-            // Toggle current dropdown
-            if (isOpen) {
-              dropdownMenu.classList.remove("show");
-              this.parentElement.classList.remove("show");
-              if (dropdownArrow) {
-                dropdownArrow.style.transform = "";
-              }
             } else {
-              dropdownMenu.classList.add("show");
-              this.parentElement.classList.add("show");
-              if (dropdownArrow) {
-                dropdownArrow.style.transform = "rotate(180deg)";
+              // On desktop, restore Bootstrap behavior
+              if (!dropdownToggle.hasAttribute("data-bs-toggle")) {
+                dropdownToggle.setAttribute("data-bs-toggle", "dropdown");
               }
             }
           });
 
           // Prevent dropdown menu clicks from closing the main menu
-          dropdownMenu.addEventListener("click", function (e) {
-            e.stopPropagation();
-          });
+          if (dropdownMenu) {
+            dropdownMenu.addEventListener("click", function (e) {
+              e.stopPropagation();
+            });
+          }
         }
       });
 
       // Handle window resize to reset dropdown behavior
       window.addEventListener("resize", function () {
         const dropdownMenus = document.querySelectorAll(".dropdown-menu");
+        const dropdownToggle = document.querySelector("#categoryDropdown");
+        const isMobile = window.innerWidth < 992;
+
         dropdownMenus.forEach((menu) => {
           menu.classList.remove("show");
           menu.parentElement.classList.remove("show");
         });
+
+        // Reset arrows
+        document.querySelectorAll(".dropdown-arrow").forEach((arrow) => {
+          arrow.style.transform = "";
+        });
+
+        // Handle Bootstrap attribute based on screen size
+        if (dropdownToggle) {
+          if (isMobile) {
+            dropdownToggle.removeAttribute("data-bs-toggle");
+          } else {
+            dropdownToggle.setAttribute("data-bs-toggle", "dropdown");
+          }
+        }
       });
 
       // Improve mobile menu UX
